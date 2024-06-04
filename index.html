@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Administrador de Pacientes</title>
+    <link rel="stylesheet" href="../css/custom.css">
     <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-gray-100 h-screen">
-      <h1 class="font-black text-5xl text-center md:w-2/3 mx-auto mt-20">
-          Seguimiento Pacientes
-          <span class="text-indigo-700">Veterinaria</span>
-      </h1>
+    <nav class="bg-white shadow-md">
+        <h1 class="font-black text-3xl text-center md:w-2/3 mx-auto uppercase">
+            Seguimiento Pacientes
+            <span class="text-indigo-700">Veterinaria</span>
+        </h1>
+    </nav>
+      
 
       <div class="mt-12 md:flex container mx-auto ">
           <div class="md:w-1/2 lg:w-2/5 mx-5">
@@ -27,16 +31,17 @@
                 class="bg-white shadow-md rounded-lg py-10 px-5 mb-10"
             >
                 <div class="mb-5">
-                    <label for="paciente" class="block text-gray-700 uppercase font-bold text-sm">
+                    <label for="mascota" class="block text-gray-700 uppercase font-bold text-sm">
                         Nombre Paciente:
                     </label>
                     <input
                         class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         type="text"
-                        id="paciente"
-                        placeholder="Nombre Paciente"
-                        name="paciente"
-                    />  
+                        id="mascota"
+                        placeholder="Nombre de la mascota"
+                        name="mascota"
+                    /> 
+                    <!-- El id puede ser cualquier nombre, en este caso se utilizo mascota, pero tambien puede ser paciente.  -->
                 </div>
 
                 <div class="mb-5">
@@ -47,7 +52,7 @@
                         class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         type="text"
                         id="propietario"
-                        placeholder="Nombre Propietario"
+                        placeholder="Nombre del dueño"
                         name="propietario"
                     />  
                 </div>
@@ -59,7 +64,7 @@
                         class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         type="email"
                         id="email"
-                        placeholder="E-mail Contacto"
+                        placeholder="E-mail de contacto"
                         name="email"
                     />  
                 </div>
@@ -84,7 +89,7 @@
                         class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
                         id="sintomas"
                         name="sintomas"
-                        placeholder="Síntomas del Paciente"
+                        placeholder="Síntomas"
                     ></textarea>  
                 </div>
 
