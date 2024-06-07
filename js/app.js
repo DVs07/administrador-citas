@@ -46,11 +46,56 @@ function crearCita(e) {
 
     //  Alternativa de validacion mas corta.
     if(Object.values(citaObj).some(input => input.trim() === '')){
-        console.log('Todos los campos son obligatorios');
+        // console.log('Todos los campos son obligatorios');
+        new Notificacion({
+            texto: 'Todos los campos son obligatorios',
+            tipo: 'error'
+        })
+        // console.log(notificacion);
         return;
     }
+}
 
-    console.log("Afuera del if");
+class Notificacion{
+    constructor({texto, tipo}){
+        this.texto = texto;
+        this.tipo = tipo;
+        this.mostrarNotificacion();
+    }
+
+    mostrarNotificacion(){
+        // Crear el div para mostrar la notificacion
+        const alerta = document.createElement('div');
+        alerta.classList.add('text-center','w-full','p-3','text-white','my-5','alert','uppercase','font-bold','tesxt-sm');
+        // Eliminar la alerta previa
+        const alertaPrevia = document.querySelector('.alert');
+        // Forma normal
+        // if(alertaPrevia){
+        //     alertaPrevia.remove();
+        // }
+        // Utilizando optional chaining
+        alertaPrevia?.remove();
+
+        // Tipo de notificacion
+        // if(this.tipo === 'error'){
+        //     alerta.classList.add('bg-red-500');
+        // }else{
+        //     alerta.classList.add('bg-green-500');
+        // }
+        // Usando ternario
+        this.tipo === 'error' ? alerta.classList.add('bg-red-500') : alerta.classList.add('bg-green-500');
+
+        // Mensaje de la notificacion
+        alerta.textContent = this.texto;
+
+        // Insertar en el DOM
+        formulario.parentElement.insertBefore(alerta, formulario);
+
+        // Quitar la alerta despues de 3 segundos
+        setTimeout(() => {
+            alerta.remove();
+        }, 3000);
+    }
 }
 
 
