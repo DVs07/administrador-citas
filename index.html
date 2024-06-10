@@ -9,103 +9,108 @@
     <link rel="stylesheet" href="dist/output.css">
 </head>
 <body class="bg-gray-100 h-screen">
-    <nav class="bg-white shadow-md">
+    <nav class="bg-indigo-600 py-2 shadow-md">
         <h1 class="font-black text-3xl text-center md:w-2/3 mx-auto uppercase">
             Seguimiento Pacientes
-            <span class="text-indigo-700">Veterinaria</span>
+            <span class="text-white">Veterinaria</span>
         </h1>
     </nav>
-    <div class="mt-12 md:flex container mx-auto ">
-        <div class="md:w-1/2 lg:w-2/5 mx-5">
-            <h2 class="font-black text-3xl text-center">Seguimiento Pacientes</h2>
-
-            <p class="text-lg mt-5 text-center mb-10">
-                Añade Pacientes y
-                <span class="text-indigo-600 font-bold">Administralos</span>
-            </p>
-            <!-- FORMULARIO -->
-            <form id="formulario-cita" class="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
-                <div class="mb-5">
-                    <label for="mascota" class="block text-gray-700 uppercase font-bold text-sm">
-                        Nombre Paciente:
-                    </label>
+    <main>
+        <div class="mt-12 md:flex container mx-auto ">
+            <div class="md:w-1/2 lg:w-2/5 mx-5">
+                <h2 class="font-black text-3xl text-center">Seguimiento Pacientes</h2>
+    
+                <p class="text-lg mt-5 text-center mb-10">
+                    Añade Pacientes y
+                    <span class="text-indigo-600 font-bold">Administralos</span>
+                </p>
+                <!-- FORMULARIO -->
+                <form id="formulario-cita" class="bg-white shadow-md rounded-lg py-10 px-5 mb-10">
+                    <div class="mb-5">
+                        <label for="mascota" class="block text-gray-700 uppercase font-bold text-sm">
+                            Nombre Paciente:
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="text"
+                            id="mascota"
+                            placeholder="Nombre de la mascota"
+                            name="mascota"
+                        /> 
+                        <!-- El id puede ser cualquier nombre, en este caso se utilizo mascota, pero tambien puede ser paciente.  -->
+                    </div>
+    
+                    <div class="mb-5">
+                        <label for="propietario" class="block text-gray-700 uppercase font-bold text-sm">
+                            Nombre Propietario:
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="text"
+                            id="propietario"
+                            placeholder="Nombre del dueño"
+                            name="propietario"
+                        />  
+                    </div>
+                    <div class="mb-5">
+                        <label for="email" class="block text-gray-700 uppercase font-bold text-sm">
+                            Email Contacto
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="email"
+                            id="email"
+                            placeholder="E-mail de contacto"
+                            name="email"
+                        />  
+                    </div>
+    
+                    <div class="mb-5">
+                        <label for="fecha" class="block text-gray-700 uppercase font-bold text-sm">
+                            Fecha Alta
+                        </label>
+                        <input
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            type="date"
+                            id="fecha"
+                            name="fecha"
+                        />  
+                    </div>
+    
+                    <div class="mb-5">
+                        <label for="sintomas" class="block text-gray-700 uppercase font-bold text-sm">
+                            Síntomas
+                        </label>
+                        <textarea
+                            class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
+                            id="sintomas"
+                            name="sintomas"
+                            placeholder="Síntomas"
+                        ></textarea>  
+                    </div>
+    
                     <input
-                        class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        type="text"
-                        id="mascota"
-                        placeholder="Nombre de la mascota"
-                        name="mascota"
-                    /> 
-                    <!-- El id puede ser cualquier nombre, en este caso se utilizo mascota, pero tambien puede ser paciente.  -->
+                        type="submit"
+                        class="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
+                        value='Registrar Paciente'
+                    />
+                </form>
+            </div>
+    
+            <div class="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
+                <h2 class="font-black text-3xl text-center">Listado Pacientes</h2>
+                <p class="text-xl mt-5 mb-10 text-center">Administra tus
+                    <span class="text-indigo-600 font-bold ">Pacientes y Citas</span>
+                </p>
+                <div id="citas">
+                <p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>
                 </div>
-
-                <div class="mb-5">
-                    <label for="propietario" class="block text-gray-700 uppercase font-bold text-sm">
-                        Nombre Propietario:
-                    </label>
-                    <input
-                        class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        type="text"
-                        id="propietario"
-                        placeholder="Nombre del dueño"
-                        name="propietario"
-                    />  
-                </div>
-                <div class="mb-5">
-                    <label for="email" class="block text-gray-700 uppercase font-bold text-sm">
-                        Email Contacto
-                    </label>
-                    <input
-                        class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        type="email"
-                        id="email"
-                        placeholder="E-mail de contacto"
-                        name="email"
-                    />  
-                </div>
-
-                <div class="mb-5">
-                    <label for="fecha" class="block text-gray-700 uppercase font-bold text-sm">
-                        Fecha Alta
-                    </label>
-                    <input
-                        class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        type="date"
-                        id="fecha"
-                        name="fecha"
-                    />  
-                </div>
-
-                <div class="mb-5">
-                    <label for="sintomas" class="block text-gray-700 uppercase font-bold text-sm">
-                        Síntomas
-                    </label>
-                    <textarea
-                        class="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
-                        id="sintomas"
-                        name="sintomas"
-                        placeholder="Síntomas"
-                    ></textarea>  
-                </div>
-
-                <input
-                    type="submit"
-                    class="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
-                    value='Registrar Paciente'
-                />
-            </form>
-        </div>
-
-        <div class="md:w-1/2 lg:w-3/5 md:h-screen overflow-y-scroll">
-            <h2 class="font-black text-3xl text-center">Listado Pacientes</h2>
-            <p class="text-xl mt-5 mb-10 text-center">Administra tus
-                <span class="text-indigo-600 font-bold ">Pacientes y Citas</span>
-            </p>
-            <div id="citas">
-            <p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>
             </div>
         </div>
-    </div>
+    </main>
+    <footer class="bg-indigo-600 text-white shadow-md py-2">
+        <p class="text-center">Todos los derechos Reservados. Creado por <span class="text-white font-bold">Aldo Ruiz</span></p>
+    </footer>
 
     <script src="js/app.js"></script>
 </body>
