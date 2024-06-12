@@ -9,7 +9,8 @@ const formulario = document.querySelector('#formulario-cita');
 const contenedorCitas = document.querySelector('#citas');
 
 // Objeto de cita
-const citaObj ={
+const citaObj = {
+    id: generarId(),
     mascota: '',
     propietario: '',
     email: '',
@@ -41,19 +42,10 @@ class Notificacion{
         alerta.classList.add('text-center','w-full','p-3','text-white','my-5','alert','uppercase','font-bold','tesxt-sm');
         // Eliminar la alerta previa
         const alertaPrevia = document.querySelector('.alert');
-        // Forma normal
-        // if(alertaPrevia){
-        //     alertaPrevia.remove();
-        // }
+
         // Utilizando optional chaining
         alertaPrevia?.remove();
 
-        // Tipo de notificacion
-        // if(this.tipo === 'error'){
-        //     alerta.classList.add('bg-red-500');
-        // }else{
-        //     alerta.classList.add('bg-green-500');
-        // }
         // Usando ternario
         this.tipo === 'error' ? alerta.classList.add('bg-red-500') : alerta.classList.add('bg-green-500');
 
@@ -114,13 +106,36 @@ class AdminCitas{
             const sintomas = document.createElement('p');
             sintomas.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
             sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${cita.sintomas}`;
-        
+
+            // Agregando los botones de eliminar y editar
+            const btnEditar = document.createElement('button');
+            btnEditar.classList.add('py-2', 'px-10', 'bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2', 'btn-editar');
+
+            // Copia de la cita usando structured clone, para no modificar la original
+            const copia = structuredClone(cita);
+            // Añadiendo el evento de editar. Usando event handlers de JS...
+            btnEditar.onclick = () => cargarEdiciion(cita);
+
+            btnEditar.innerHTML = 'Editar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
+
+            const btnEliminar = document.createElement('button');
+            btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
+            
+            btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
+            
+            // Contenedor de los botones
+            const contenedorBotones = document.createElement('div');
+            contenedorBotones.classList.add('flex', 'justify-between', 'items-center', 'mt-10');
+            contenedorBotones.appendChild(btnEditar);
+            contenedorBotones.appendChild(btnEliminar);
+
             // Agregar al HTML
             divCita.appendChild(nombreMascota);
             divCita.appendChild(propietario);
             divCita.appendChild(email);
             divCita.appendChild(fecha);
             divCita.appendChild(sintomas);
+            divCita.appendChild(contenedorBotones);
             contenedorCitas.appendChild(divCita);
         });   
     }
@@ -149,24 +164,31 @@ function crearCita(e) {
     formulario.reset();
 
     reiniciarObjeto();
+
+    new Notificacion({
+        texto: 'Guardado Correctamente',
+        tipo: 'correcto'
+    })
 }
 
 function reiniciarObjeto() {
-    // Reiniciar objeto
-    // citaObj.mascota = '';
-    // citaObj.propietario = '';
-    // citaObj.email = '';
-    // citaObj.fecha = '';
-    // citaObj.sintomas = '';
 
     // Alternativa de reiniciar objeto
     Object.assign(citaObj, {
+        id: generarId(),
         mascota: '',
         propietario: '',
         email: '',
         fecha: '',
         sintomas: ''
     })
+}
+
+function generarId() {
+    return Math.random().toString(36).substring(2) + Date.now();
+}
+function cargarEdiciion(cita) {
+    console.log(cita);
 }
 
 
