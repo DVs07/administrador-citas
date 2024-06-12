@@ -74,12 +74,14 @@ class AdminCitas{
     constructor(){
         this.citas = [];
 
-        console.log(this.citas);
+        // console.log(this.citas);
     }
 
     agregarCita(cita){
         this.citas = [...this.citas, cita];
         console.log(this.citas);
+
+        this.mostrarCitas();
     }
 
     mostrarCitas(){
@@ -89,20 +91,6 @@ class AdminCitas{
         }
 
         // Generar las citas
-        // this.citas.forEach(cita => {
-        //     const {mascota, propietario, email, fecha, sintomas} = cita;
-        //     const divCita = document.createElement('div');
-        //     divCita.classList.add('mx-5', 'my-10','bg-white','shadow-md','px-5','py-10','rounded-xl');
-            
-        //     const nombreMascota = document.createElement('p');
-        //     nombreMascota.classList.add('font-normal','mb-3','text-gray-700','normal-case');
-        //     nombreMascota.innerHTML = `<span class="font-bold uppercase">Nombre: </span> ${cita.mascota}`;
-
-        //     // Inyectar al HTML
-        //     divCita.appendChild(nombreMascota);
-
-        //     contenedorCitas.appendChild(divCita);
-        // })
         this.citas.forEach(cita => {
             const divCita = document.createElement('div');
             divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10' ,'rounded-xl', 'p-3');
@@ -146,15 +134,6 @@ const citas = new AdminCitas();
 function crearCita(e) {
     e.preventDefault();
 
-    // console.log("Creando cita...");
-    // Validacion
-    // const {mascota, propietario, email, fecha, sintomas} = citaObj;
-    // if(mascota.trim() === '' || propietario.trim() === '' || email.trim() === '' || fecha.trim() === '' || sintomas.trim() === '') // trim() elimina los espacios en Blanco.
-    // {
-    //     console.log('Todos los campos son obligatorios');
-    //     return;
-    // }
-
     //  Alternativa de validacion mas corta.
     if(Object.values(citaObj).some(input => input.trim() === '')){
         // console.log('Todos los campos son obligatorios');
@@ -167,7 +146,27 @@ function crearCita(e) {
     }
     citas.agregarCita({...citaObj});
 
-    citas.mostrarCitas();
+    formulario.reset();
+
+    reiniciarObjeto();
+}
+
+function reiniciarObjeto() {
+    // Reiniciar objeto
+    // citaObj.mascota = '';
+    // citaObj.propietario = '';
+    // citaObj.email = '';
+    // citaObj.fecha = '';
+    // citaObj.sintomas = '';
+
+    // Alternativa de reiniciar objeto
+    Object.assign(citaObj, {
+        mascota: '',
+        propietario: '',
+        email: '',
+        fecha: '',
+        sintomas: ''
+    })
 }
 
 
