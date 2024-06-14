@@ -5,6 +5,7 @@ const fechaInput = document.querySelector('#fecha');
 const sintomasInput = document.querySelector('#sintomas');
 
 const formulario = document.querySelector('#formulario-cita');
+const btnFormualario = document.querySelector('#formulario-cita input[type="submit"]');
 
 const contenedorCitas = document.querySelector('#citas');
 
@@ -28,6 +29,8 @@ fechaInput.addEventListener('input', datosCita);
 sintomasInput.addEventListener('input', datosCita);
 
 formulario.addEventListener('submit', crearCita);
+
+let modoEdicion = false;
 
 class Notificacion{
     constructor({texto, tipo}){
@@ -65,7 +68,6 @@ class Notificacion{
 class AdminCitas{
     constructor(){
         this.citas = [];
-
         // console.log(this.citas);
     }
 
@@ -76,6 +78,10 @@ class AdminCitas{
         this.mostrarCitas();
     }
 
+    editarCita(citaActualizada){
+        this.citas = this.citas.map( cita => cita.id === citaActualizada.id ? citaActualizada : cita)
+        this.mostrarCitas();
+    }
     mostrarCitas(){
         // Limpiar HTML previo
         while(contenedorCitas.firstChild){
@@ -114,7 +120,7 @@ class AdminCitas{
             // Copia de la cita usando structured clone, para no modificar la original
             const copia = structuredClone(cita);
             // Añadiendo el evento de editar. Usando event handlers de JS...
-            btnEditar.onclick = () => cargarEdiciion(cita);
+            btnEditar.onclick = () => cargarEdicion(copia);
 
             btnEditar.innerHTML = 'Editar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>'
 
@@ -159,16 +165,26 @@ function crearCita(e) {
         // console.log(notificacion);
         return;
     }
-    citas.agregarCita({...citaObj});
-
-    formulario.reset();
-
-    reiniciarObjeto();
-
-    new Notificacion({
+    if(modoEdicion) {
+        // console.log('Editando...');
+        citas.editarCita({...citaObj});
+        new Notificacion({
+            texto: 'Guardado Correctamente',
+            tipo: 'correcto'
+        })
+    }else{
+        // console.log('Registro nuevo...');
+        citas.agregarCita({...citaObj});
+        new Notificacion({
         texto: 'Guardado Correctamente',
         tipo: 'correcto'
-    })
+        })
+    }
+
+    formulario.reset();
+    reiniciarObjeto();
+    btnFormualario.value = 'Registrar Paciente';
+    modoEdicion = false;
 }
 
 function reiniciarObjeto() {
@@ -187,8 +203,18 @@ function reiniciarObjeto() {
 function generarId() {
     return Math.random().toString(36).substring(2) + Date.now();
 }
-function cargarEdiciion(cita) {
-    console.log(cita);
+function cargarEdicion(cita) {
+    // console.log(cita);
+    Object.assign(citaObj, cita);
+    nombreMascotaInput.value = cita.mascota;
+    propietarioInput.value = cita.propietario;
+    emailInput.value = cita.email;
+    fechaInput.value = cita.fecha;
+    sintomasInput.value = cita.sintomas;
+
+    modoEdicion = true;
+
+    btnFormualario.value = 'Guardar Cambios';
 }
 
 
