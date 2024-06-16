@@ -68,7 +68,6 @@ class Notificacion{
 class AdminCitas{
     constructor(){
         this.citas = [];
-        // console.log(this.citas);
     }
 
     agregarCita(cita){
@@ -84,7 +83,6 @@ class AdminCitas{
     }
 
     eliminarCita(id){
-        // console.log(id);
         this.citas = this.citas.filter( cita => cita.id !== id);
         this.mostrarCitas();
     }
@@ -171,23 +169,19 @@ function crearCita(e) {
 
     //  Alternativa de validacion mas corta.
     if(Object.values(citaObj).some(input => input.trim() === '')){
-        // console.log('Todos los campos son obligatorios');
         new Notificacion({
             texto: 'Todos los campos son obligatorios',
             tipo: 'error'
         })
-        // console.log(notificacion);
         return;
     }
     if(modoEdicion) {
-        // console.log('Editando...');
         citas.editarCita({...citaObj});
         new Notificacion({
             texto: 'Guardado Correctamente',
             tipo: 'correcto'
         })
     }else{
-        // console.log('Registro nuevo...');
         citas.agregarCita({...citaObj});
         new Notificacion({
         texto: 'Guardado Correctamente',
@@ -218,7 +212,6 @@ function generarId() {
     return Math.random().toString(36).substring(2) + Date.now();
 }
 function cargarEdicion(cita) {
-    // console.log(cita);
     Object.assign(citaObj, cita);
     nombreMascotaInput.value = cita.mascota;
     propietarioInput.value = cita.propietario;
